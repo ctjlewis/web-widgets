@@ -1,0 +1,66 @@
+{
+  "name": "web-widgets",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Christian Lewis <hello@trytelework.com>",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "web-widgets": "./dist/cli.cjs",
+    "web-widgets-dev": "./exports/cli.js"
+  },
+  "main": "./dist/node.cjs",
+  "exports": {
+    "import": "./dist/node.mjs",
+    "require": "./dist/node.cjs"
+  },
+  "scripts": {
+    "create-bin": "mkdir -p dist && touch dist/cli.cjs",
+    "cold-start": "npm run gnv-get && gnv-dev build",
+    "gnv-install": "npm run create-bin && node .gnv/npm/install.js",
+    "gnv-install-dev": "npm run create-bin && node .gnv/npm/installDev.js",
+    "prebuild": "npm run clean",
+    "build": "npm run build:dev && npm run build:dist && npm run build:exe && npm run format-clis",
+    "build:dev": "rollup -c .gnv/rollup.dev.es.js && rollup -c .gnv/rollup.dev.cjs.js",
+    "build:dist": "rollup -c .gnv/rollup.dist.es.js && rollup -c .gnv/rollup.dist.cjs.js",
+    "build:exe": "node .gnv/npm/buildExe.js",
+    "postbuild": "npm run test",
+    "minify:dist": "rollup -c .gnv/rollup.dist.minify.js",
+    "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
+    "clean": "rm -rf dist/* && rm -rf dev/*",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "",
+  "gnvDependencies": {
+    "await-shell": "latest",
+    "commander": "6.0.0",
+    "chalk": "4.1.0",
+    "chokidar": "3.4.0",
+    "ora": "4.0.4",
+    "tree-node-cli": "1.4.0"
+  },
+  "peerDependencies": {
+    "@ampproject/rollup-plugin-closure-compiler": "0.26.0",
+    "@rollup/plugin-commonjs": "15.0.0",
+    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-node-resolve": "9.0.0",
+    "builtin-modules": "latest",
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
+    "glob": "7.1.6",
+    "google-closure-compiler": "20200719.0.0",
+    "google-closure-library": "20200719.0.0",
+    "mocha": "8.0.1",
+    "rollup": "2.21.0",
+    "rollup-plugin-disable-packages": "3.0.0",
+    "rollup-plugin-export-default": "1.4.0",
+    "rollup-plugin-preserve-shebang": "1.0.1",
+    "rollup-plugin-bundle-size": "latest",
+    "rollup-plugin-import-meta-url": "5.0.0"
+  },
+  "dependencies": {}
+}
