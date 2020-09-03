@@ -27,6 +27,7 @@ export const distPlugins = [
    * Input is Closure Compiled to minimize strain on `node-resolve`.
    */
   closureCompiler({
+    define: 'PRODUCTION=true',
     compilation_level: 'SIMPLE',
     language_in: 'ES_NEXT',
     language_out: 'NO_TRANSPILE',

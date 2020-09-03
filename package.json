@@ -41,7 +41,8 @@
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
     "ora": "4.0.4",
-    "tree-node-cli": "1.4.0"
+    "tree-node-cli": "1.4.0",
+    "enable-browser-mode": "latest"
   },
   "peerDependencies": {
     "@ampproject/rollup-plugin-closure-compiler": "0.26.0",

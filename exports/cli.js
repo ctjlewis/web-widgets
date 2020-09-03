@@ -33,6 +33,7 @@ try {
 }
 catch (e) {
   /**
-   * Don't bother throwing any errors if there are no args provided.
+   * If no args are provided, this block executes.
    */
+  console.log('\n');
 }

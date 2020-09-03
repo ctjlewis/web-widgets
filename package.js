@@ -17,8 +17,8 @@ import {
   writeFileSync,
 } from 'fs';
 
-const spacer = (msg) => console.log(
-    '\x1b[96m%s\x1b[0m', `[𝓰𝓷𝓿]` + ` ${msg}`,
+const spacer = (...msgs) => console.log(
+    '\x1b[96m%s\x1b[0m', `[𝓰𝓷𝓿]` + ` ${msgs.join(' ')}`,
 );
 
 const getPackageStrings = (deps = {}) => (
@@ -36,7 +36,7 @@ const callNpm = async (...args) => {
         /**
          * Only inherit stderr.
          */
-        stdio: ['ignore', 'ignore', 'inherit'],
+        stdio: ['ignore', 'inherit', 'inherit'],
       },
   );
 };
@@ -80,7 +80,7 @@ export const readPackageJson = (directory = '.') => {
 export const writePackageJson = (obj, {
   directory = '.',
   spaces = 2,
-}) => {
+} = {}) => {
   const fileName = path.resolve(
       process.cwd(),
       directory,
@@ -159,7 +159,7 @@ export const checkInsideProject = (silent) => {
   if (!configExists) {
     if (silent) return false;
     else {
-      spacer('Oops! Not inside a gnv project.\n');
+      spacer('Oops! Not inside a gnv project.');
       process.exit(1);
     }
   }
@@ -172,7 +172,12 @@ export const checkInsideProject = (silent) => {
  * encoding invalid relative URLs that would not be accepted by
  * `url.fileURLToPath`, such as `file://fileInThisDir` -> `./fileInThisDir`.
  */
-export const PACKAGE_ROOT = path.dirname(import.meta.url.substr(7));
+export const PACKAGE_ROOT = path.resolve(
+    /** Resolve relative to `process.cwd()`. */
+    process.cwd(),
+    /** Dir containing package.js. */
+    path.dirname(import.meta.url.substr(7)),
+);
 
 /**
  * Export the value of the absolute package.json for easy access.
@@ -196,10 +201,9 @@ export const PACKAGE_NAME = PACKAGE_JSON.name || '';
  * Command metadata.
  */
 export const add = async (packageStrings, {
-  directory = '',
   peer = false,
-}) => {
-  const packageJson = readPackageJson(directory);
+} = {}) => {
+  const packageJson = readPackageJson();
   for (const packageString of packageStrings) {
     const {
       name,
@@ -224,9 +228,8 @@ export const add = async (packageStrings, {
     /**
      * Write to package.json.
      */
-    writePackageJson(packageJson, {
-      directory,
-    });
+    writePackageJson(packageJson);
+    spacer('Added', packageStrings.length, 'packages.');
   }
 };
 
@@ -242,10 +245,9 @@ export const add = async (packageStrings, {
  * Command metadata.
  */
 export const remove = async (packageStrings, {
-  directory = '',
   peer = false,
-}) => {
-  const packageJson = readPackageJson(directory);
+} = {}) => {
+  const packageJson = readPackageJson();
   for (const packageString of packageStrings) {
     const {
       name,
@@ -279,8 +281,8 @@ export const remove = async (packageStrings, {
  * Command-line options.
  */
 export const install = async (
-  directory = '.',
-  { dev } = { dev: false },
+    directory = '.',
+    { dev = false } = {},
 ) => {
   /**
    * Cache original working directory, cd into install dir.
@@ -312,6 +314,10 @@ export const install = async (
     spacer('Dev mode: Installing local & peer dependencies.');
     await installLocalDeps();
     await installGlobalDeps();
+    spacer(
+        `Done! Your development CLI should be ready at `
+      + `\`${path.basename(process.cwd())}-dev\`.`,
+    );
   };
   /**
    * cd back into original directory.
@@ -368,7 +374,6 @@ export const installGlobalDeps = async (directory) => {
    */
   spacer('Adding global peerDeps:');
   await callNpm('i', '-g', '--no-save', '--silent', ...peerDependencies);
-  spacer(`Installed ${peerDependencies.length} packages.`);
 
   /**
    * Link peerDeps locally. Also links this package so that CLIs are
@@ -376,14 +381,7 @@ export const installGlobalDeps = async (directory) => {
    */
   spacer('Linking peer dependencies locally...');
   await callNpm('link', '-f', '--no-save', '--silent', ...anyVersionPeerDeps);
-
-  /**
-   * Everything was successful!
-   */
-  spacer(
-      `Done! Your development CLI should be ready at \`${PACKAGE_NAME}-dev\`.`,
-      '\n',
-  );
+  spacer(`Installed and linked ${peerDependencies.length} packages.`);
 };
 
 
@@ -392,7 +390,7 @@ export const installGlobalDeps = async (directory) => {
  *
  * @return {string} version
  */
-export const getVersion = () => readPackageJson(PACKAGE_ROOT).version;
+export const PACKAGE_VERSION = readPackageJson(PACKAGE_ROOT).version || '';
 
 /**
  * Install the global dependencies for this program. Same as
