@@ -1,17 +1,13 @@
 (function(){/*
-
- Copyright The Closure Library Authors.
- SPDX-License-Identifier: Apache-2.0
-*/
+ MIT */
 'use strict';function d(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}}function f(a){var b="undefined"!=typeof Symbol&&Symbol.iterator&&a[Symbol.iterator];return b?b.call(a):{next:d(a)}}function g(a){if(!(a instanceof Array)){a=f(a);for(var b,c=[];!(b=a.next()).done;)c.push(b.value);a=c}return a}
 var h="function"==typeof Object.create?Object.create:function(a){function b(){}b.prototype=a;return new b},k="function"==typeof Object.defineProperties?Object.defineProperty:function(a,b,c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a};
 function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var c=a[b];if(c&&c.Math==Math)return c}throw Error("Cannot find global object");}var m=l(this);function n(a,b){if(b)a:{var c=m;a=a.split(".");for(var e=0;e<a.length-1;e++){var q=a[e];if(!(q in c))break a;c=c[q]}a=a[a.length-1];e=c[a];b=b(e);b!=e&&null!=b&&k(c,a,{configurable:!0,writable:!0,value:b})}}var p;
 if("function"==typeof Object.setPrototypeOf)p=Object.setPrototypeOf;else{var r;a:{var aa={i:!0},t={};try{t.__proto__=aa;r=t.i;break a}catch(a){}r=!1}p=r?function(a,b){a.__proto__=b;if(a.__proto__!==b)throw new TypeError(a+" is not extensible");return a}:null}var u=p;
 function v(a,b){a.prototype=h(b.prototype);a.prototype.constructor=a;if(u)u(a,b);else for(var c in b)if("prototype"!=c)if(Object.defineProperties){var e=Object.getOwnPropertyDescriptor(b,c);e&&Object.defineProperty(a,c,e)}else a[c]=b[c]}n("Object.is",function(a){return a?a:function(b,c){return b===c?0!==b||1/b===1/c:b!==b&&c!==c}});
 n("Array.prototype.includes",function(a){return a?a:function(b,c){var e=this;e instanceof String&&(e=String(e));var q=e.length;c=c||0;for(0>c&&(c=Math.max(c+q,0));c<q;c++){var w=e[c];if(w===b||Object.is(w,b))return!0}return!1}});
-n("String.prototype.includes",function(a){return a?a:function(b,c){if(null==this)throw new TypeError("The 'this' value for String.prototype.includes must not be null or undefined");if(b instanceof RegExp)throw new TypeError("First argument to String.prototype.includes must not be a regular expression");return-1!==this.indexOf(b,c||0)}});n("Object.entries",function(a){return a?a:function(b){var c=[],e;for(e in b)Object.prototype.hasOwnProperty.call(b,e)&&c.push([e,b[e]]);return c}});/*
- MIT */
-/*
+n("String.prototype.includes",function(a){return a?a:function(b,c){if(null==this)throw new TypeError("The 'this' value for String.prototype.includes must not be null or undefined");if(b instanceof RegExp)throw new TypeError("First argument to String.prototype.includes must not be a regular expression");return-1!==this.indexOf(b,c||0)}});n("Object.entries",function(a){return a?a:function(b){var c=[],e;for(e in b)Object.prototype.hasOwnProperty.call(b,e)&&c.push([e,b[e]]);return c}});
+"undefined"===typeof goog&&"undefined"!==typeof global&&(global.o={define:function(a,b){return b}});/*
  MIT
 */
 var x=document.createElement("style"),y=[],z={};function A(a){function b(){B.apply(this,arguments)}for(var c=[],e=0;e<arguments.length;++e)c[e]=arguments[e];v(b,B);b.g=function(q){for(var w=[],F=0;F<arguments.length;++F)w[F]=arguments[F];this.c.push.apply(this.c,g(w))};m.Object.defineProperties(b,{f:{configurable:!0,enumerable:!0,get:function(){B.a.call(this);return[this.name].concat(g(this.c))}}});b.c=[];c=f(c);for(e=c.next();!e.done;e=c.next())b.g.apply(b,g(e.value.f))}

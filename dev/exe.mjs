@@ -2,7 +2,12 @@
 /**
  * @fileoverview
  * Globals to be overridden at compile-time.
- * */
+ */
+if (typeof goog === 'undefined' && typeof global !== 'undefined') {
+  global.goog = {
+    define: (n, v) => v,
+  };
+}
 
 /**
  * Compiler-level constant that informs CC whether or not to rename tag names.
@@ -1169,3 +1174,4 @@ const page = new WebPage(
 page.render();
 console.log(page.html);
 console.log({ PRODUCTION });
+export default {  };

@@ -6,7 +6,12 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /**
  * @fileoverview
  * Globals to be overridden at compile-time.
- * */
+ */
+if (typeof goog === 'undefined' && typeof global !== 'undefined') {
+  global.goog = {
+    define: (n, v) => v,
+  };
+}
 
 /**
  * Compiler-level constant that informs CC whether or not to rename tag names.
