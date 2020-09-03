@@ -247,6 +247,7 @@ class Inheritable {
    * Cache a list of classNames which have been added to the CSSOM.
    *
    * @return {Inheritable} this
+   * @nocollapse
    */
   static cacheStyles() {
     const className = this.name;
@@ -921,10 +922,59 @@ class ListItem extends Mix(Row, Elevation1) {
   }
 }
 
+/**
+ * WebPage widgets for <head>, <body> etc.
+ */
+
+/**
+ * An element with no styling.
+ */
+class UnstyledElement extends Widget {
+  build() {
+    this.classNames = [];
+    super.build();
+    return this;
+  }
+}
+
+/**
+ * A <meta> element.
+ */
+class Meta extends UnstyledElement {
+  constructor(attrs) {
+    super().setAttributes(attrs);
+  }
+
+  static get tag() {
+    return `meta`;
+  }
+}
+
+/**
+ * UTILITIES
+ */
+
+/**
+ * To be used in <head>, for viewport sizing.
+ */
+const HEADER_FLAGS = [
+  new Meta({
+    'http-equiv': 'Content-Type',
+    'content': 'text/html; charset=UTF-8',
+  }),
+  new Meta({
+    'http-equiv': 'X-UA-Compatible',
+    'content': 'IE=edge,chrome=1',
+  }),
+  new Meta({
+    'name': 'viewport',
+    'content': 'width=device-width, initial-scale=1.0',
+  }),
+];
+
 /** @license MIT */
 
-new Center().build().render();
-
-/** Add the stylesheet to the CSSOM. */
+/** Initialize CSSOM stylesheet. */
 addStylesheet();
-export default {  };
+
+new Center().build().render();

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @license MIT
  */
@@ -61,6 +63,15 @@ const WIDGETS_FLAGS = {
    */
   TIMES: [],
 };
+
+/**
+ * Append the Widgets stylesheet to the document head.
+ *
+ * @return {void}
+ */
+const addStylesheet = () => document.head.appendChild(
+    WIDGETS_FLAGS.STYLESHEET,
+);
 
 /**
  * Allows for Widget mixins, so that we can extend multiple Widgets at once.
@@ -609,24 +620,6 @@ class TextNode extends Widget {
 /**
  * @license MIT
  */
-/**
- * @fileoverview
- * A file for storing template strings.
- */
-
-const TOP_LEVEL_CSS = `
-    -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth;
-    font-size: 100%;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-`;
-
-/**
- * @license MIT
- */
 
 /**
  * A Widget with elevation `1`.
@@ -643,49 +636,6 @@ class Elevation1 extends Widget {
 }
 
 /**
- * A Widget with elevation `2`.
- *
- * @category Widgets
- * @augments Widget
- */
-class Elevation2 extends Widget {
-  static get styles() {
-    return `box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),`
-      + `0 3px 1px -2px rgba(0, 0, 0, 0.12),`
-      + `0 1px 5px 0 rgba(0, 0, 0, 0.20);`;
-  }
-}
-
-/**
- * A Widget that sets `display: block`.
- *
- * @category Widgets
- * @augments Widget
- */
-class Block extends Widget {
-  static get styles() {
-    return `
-            display: block;
-        `;
-  }
-}
-
-/**
- * Adds 16px of padding. Override
- * `style` to customize.
- *
- * @category Widgets
- * @augments Widget
- */
-class Padding extends Widget {
-  static get styles() {
-    return `
-            padding: 16px;
-        `;
-  }
-}
-
-/**
  * @category Widgets
  * @augments Widget
  */
@@ -697,44 +647,6 @@ class Center extends Widget {
             justify-content: center;
             text-align: center;
         `;
-  }
-}
-
-/**
- * A relative positioned element.
- *
- * @category Widgets
- * @augments Widget
- */
-class Relative extends Widget {
-  static get styles() {
-    return `
-            position: relative;
-         `;
-  }
-}
-
-/**
- * An absolutely positioned element.
- *
- * @category Widgets
- * @augments Widget
- */
-class Absolute extends Widget {
-  static get styles() {
-    return `position: absolute;`;
-  }
-}
-
-/**
- * A fixed position element.
- *
- * @category Widgets
- * @augments Widget
- */
-class Fixed extends Widget {
-  static get styles() {
-    return `position: fixed;`;
   }
 }
 
@@ -860,27 +772,6 @@ class Flex extends Widget {
  * @category Widgets
  * @augments Flex
  */
-class Inflate extends Flex {
-  static get styles() {
-    return `
-            width: 100%;
-            height: 100%;
-
-            max-height: 100%;
-            max-height: -moz-available;
-            max-height: -webkit-fill-available;
-            max-height: fill-available;
-
-            margin: 0px;
-            padding: 0px;
-        `;
-  }
-}
-
-/**
- * @category Widgets
- * @augments Flex
- */
 class Column extends Flex {
   static get styles() {
     return `
@@ -900,12 +791,6 @@ class Row extends Flex {
         `;
   }
 }
-
-/**
- * @category Widgets
- * @augments Inflate
- */
-class Slide extends Inflate {}
 
 /**
  * @category Widgets
@@ -954,49 +839,6 @@ class BoldText extends TextWidget {
 }
 
 /**
- * A boring old `<img>` tag.
- *
- * @category Widgets
- */
-class Img extends Widget {
-  static get tag() {
-    return 'img';
-  }
-
-  /**
-   * The URL for this img's src attribute.
-   *
-   * @param {string} src
-   */
-  constructor(src) {
-    super();
-    this.setAttributes({
-      src: src,
-    });
-  }
-}
-
-/**
- * A Widget for displaying flexible
- * images.
- *
- * @category Widgets
- */
-class FlexImg extends Inflate {
-  /**
-   * The URL for this image.
-   *
-   * @param {string} src
-   */
-  constructor(src) {
-    super();
-    this.setStyles(`
-            background-image: url(${src});
-        `);
-  }
-}
-
-/**
  * A horizontal layout is a full-width
  * flex row.
  *
@@ -1023,17 +865,6 @@ class Vertical extends Mix(FullHeight, Column) {
 }
 
 /**
- * A bottom bar with height of 80px.
- */
-class BottomBar extends Widget {
-  static get styles() {
-    return `
-            height: 80px;
-        `;
-  }
-}
-
-/**
  * Renders a DarkText at 50% opacity.
  *
  * @category Widgets
@@ -1041,72 +872,6 @@ class BottomBar extends Widget {
 class GreyText extends DarkText {
   static get styles() {
     return 'opacity: 0.5;';
-  }
-}
-
-/**
- * An element that fades in.
- */
-class FadeIn extends Widget {
-  static get styles() {
-    return `
-            opacity: 0;
-            transition: opacity 0.2s ease-in;
-        `;
-  }
-
-  build() {
-    super.build();
-
-    setTimeout(() => {
-      this.element.style.opacity = 1;
-    }, 0);
-
-    return this;
-  }
-}
-
-/**
- * Generate a Material icon.
- *
- * @category Widgets
- */
-class MaterialIcon extends Widget {
-  /**
-   * The name of the material icon,
-   * i.e. `add`.
-   *
-   * @param {string} icon
-   */
-  constructor(icon) {
-    super(icon);
-    this.setClasses('material-icons');
-  }
-
-  static get styles() {
-    return `
-            font-size: 36px;
-            user-select: none;
-        `;
-  }
-
-  static get tag() {
-    return 'i';
-  }
-}
-
-/**
- * A list.
- *
- * @category Widgets
- * @augments Widget
- */
-class List extends FullWidth {
-  static get styles() {
-    return `
-            display: table;
-            overflow: scroll;
-        `;
   }
 }
 
@@ -1175,46 +940,6 @@ class UnstyledElement extends Widget {
 }
 
 /**
- * A <head> element.
- */
-class Head extends UnstyledElement {
-  static get tag() {
-    return 'head';
-  }
-}
-
-/**
- * A <title> element.
- */
-class Title extends UnstyledElement {
-  static get tag() {
-    return 'title';
-  }
-}
-
-/**
- * A <link> element.
- */
-class Link extends UnstyledElement {
-  constructor(href) {
-    super();
-    this.setAttributes({
-      href: href,
-    });
-  }
-
-  static get tag() {
-    return 'link';
-  }
-
-  static get attributes() {
-    return {
-      rel: 'stylesheet',
-    };
-  }
-}
-
-/**
  * A <meta> element.
  */
 class Meta extends UnstyledElement {
@@ -1224,91 +949,6 @@ class Meta extends UnstyledElement {
 
   static get tag() {
     return `meta`;
-  }
-}
-
-
-/**
- * Generates a new `document` and fills
- * the screen. Overrides the default
- * `render()` method in order to export
- * stylesheet.
- *
- * @category Widgets
- * @augments Widget
- */
-class WebPage extends UnstyledElement {
-  constructor(...children) {
-    super(...children);
-
-    /**
-     * @type {HTMLBodyElement!}
-     */
-    this.element;
-  }
-
-  static get tag() {
-    return 'html';
-  }
-
-  static get styles() {
-    return TOP_LEVEL_CSS;
-  }
-
-  exportStylesheet() {
-    const styles = document.createElement('style');
-    const sheet = WIDGETS_FLAGS.STYLESHEET.sheet;
-
-    if (!sheet) {
-      return this;
-    }
-    else {
-      for (const rule of sheet.cssRules) {
-        styles.textContent += rule.cssText;
-      }
-    }
-
-    this.element.firstChild.appendChild(styles);
-    return this;
-  }
-
-  exportInitState() {
-    window['initState'] = this.initState.bind(this);
-    return this;
-  }
-
-  initState() {
-    console.log(document.body);
-  }
-
-  // custom render() for WebPage
-  render() {
-    if (!this.element) this.build();
-
-    this.exportStylesheet()
-        .exportInitState();
-
-    document.documentElement.replaceWith(this.element);
-    return this;
-  }
-}
-
-/**
- * A <body> element that fades in onload.
- */
-class PageBody extends FadeIn {
-  constructor(...children) {
-    super(...children).setAttributes({
-      onload: 'initState()',
-    });
-  }
-
-  static get tag() {
-    return 'body';
-  }
-
-  static get styles() {
-    return TOP_LEVEL_CSS;
   }
 }
 
@@ -1334,5 +974,9 @@ const HEADER_FLAGS = [
   }),
 ];
 
-export { Absolute, Block, BoldText, BottomBar, Card, Center, CenteredCard, CenteredHeading1, CenteredHeading2, Column, DarkText, Elevation1, Elevation2, FadeIn, Fixed, Flex, FlexImg, FullHeight, FullWidth, GreyText, HEADER_FLAGS, Head, Heading1, Heading2, Horizontal, Img, Inflate, Link, List, ListItem, ListItemContent, MaterialIcon, Meta, Padding, PageBody, Relative, Row, Slide, TextWidget, Title, UnstyledElement, Vertical, WebPage, Widget };
-export default { Absolute, Block, BoldText, BottomBar, Card, Center, CenteredCard, CenteredHeading1, CenteredHeading2, Column, DarkText, Elevation1, Elevation2, FadeIn, Fixed, Flex, FlexImg, FullHeight, FullWidth, GreyText, HEADER_FLAGS, Head, Heading1, Heading2, Horizontal, Img, Inflate, Link, List, ListItem, ListItemContent, MaterialIcon, Meta, Padding, PageBody, Relative, Row, Slide, TextWidget, Title, UnstyledElement, Vertical, WebPage, Widget };
+/** @license MIT */
+
+/** Initialize CSSOM stylesheet. */
+addStylesheet();
+
+new Center().build().render();

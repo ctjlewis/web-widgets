@@ -28,7 +28,7 @@
     "minify:dist": "rollup -c .gnv/rollup.dist.minify.js",
     "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
     "clean": "rm -rf dist/* && rm -rf dev/*",
-    "test": "mocha"
+    "test": "mocha && enable-browser-mode dist/exe.js"
   },
   "repository": {
     "type": "git",
@@ -41,8 +41,7 @@
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
     "ora": "4.0.4",
-    "tree-node-cli": "1.4.0",
-    "enable-browser-mode": "latest"
+    "tree-node-cli": "1.4.0"
   },
   "peerDependencies": {
     "@ampproject/rollup-plugin-closure-compiler": "0.26.0",
@@ -52,6 +51,7 @@
     "builtin-modules": "latest",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
+    "enable-browser-mode": "latest",
     "glob": "7.1.6",
     "google-closure-compiler": "20200719.0.0",
     "google-closure-library": "20200719.0.0",

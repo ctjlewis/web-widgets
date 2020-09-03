@@ -20,7 +20,7 @@ var PRODUCTION = false;
  *
  * @exportSymbol
  */
-const WIDGETS_FLAGS$1 = {
+const WIDGETS_FLAGS = {
   PRODUCTION: PRODUCTION,
 
   /**
@@ -216,8 +216,8 @@ class Inheritable {
      * @type {string}
      */
     const className = this.name;
-    if (className in WIDGETS_FLAGS$1.CLASS_DATA) {
-      return WIDGETS_FLAGS$1.CLASS_DATA[className];
+    if (className in WIDGETS_FLAGS.CLASS_DATA) {
+      return WIDGETS_FLAGS.CLASS_DATA[className];
     }
 
     /**
@@ -233,7 +233,7 @@ class Inheritable {
     }
 
     this.cacheStyles();
-    WIDGETS_FLAGS$1.CLASS_DATA[className] = classNames;
+    WIDGETS_FLAGS.CLASS_DATA[className] = classNames;
     return classNames;
   }
 
@@ -242,6 +242,7 @@ class Inheritable {
    * Cache a list of classNames which have been added to the CSSOM.
    *
    * @return {Inheritable} this
+   * @nocollapse
    */
   static cacheStyles() {
     const className = this.name;
@@ -249,13 +250,13 @@ class Inheritable {
 
     if (
       styles &&
-      WIDGETS_FLAGS$1.STYLESHEET.sheet &&
-      !WIDGETS_FLAGS$1.CACHED_CLASSNAMES.includes(className)
+      WIDGETS_FLAGS.STYLESHEET.sheet &&
+      !WIDGETS_FLAGS.CACHED_CLASSNAMES.includes(className)
     ) {
 
       const declaration = `.${className} {${styles}}`;
-      WIDGETS_FLAGS$1.STYLESHEET.sheet.insertRule(declaration);
-      WIDGETS_FLAGS$1.CACHED_CLASSNAMES.push(className);
+      WIDGETS_FLAGS.STYLESHEET.sheet.insertRule(declaration);
+      WIDGETS_FLAGS.CACHED_CLASSNAMES.push(className);
     }
 
     return this;
@@ -608,6 +609,24 @@ class TextNode extends Widget {
     return this.replaceText(this.text);
   }
 }
+
+/**
+ * @license MIT
+ */
+/**
+ * @fileoverview
+ * A file for storing template strings.
+ */
+
+const TOP_LEVEL_CSS = `
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    font-size: 100%;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+`;
 
 /**
  * @license MIT
@@ -1296,7 +1315,29 @@ class PageBody extends FadeIn {
     return TOP_LEVEL_CSS;
   }
 }
-var widgets = { Absolute, Block, BoldText, BottomBar, Card, Center, CenteredCard, CenteredHeading1, CenteredHeading2, Column, DarkText, Elevation1, Elevation2, FadeIn, Fixed, Flex, FlexImg, FullHeight, FullWidth, GreyText, Head, Heading1, Heading2, Horizontal, Img, Inflate, Link, List, ListItem, ListItemContent, MaterialIcon, Meta, Padding, PageBody, Relative, Row, Slide, TextWidget, Title, UnstyledElement, Vertical, WebPage, Widget };
+
+/**
+ * UTILITIES
+ */
+
+/**
+ * To be used in <head>, for viewport sizing.
+ */
+const HEADER_FLAGS = [
+  new Meta({
+    'http-equiv': 'Content-Type',
+    'content': 'text/html; charset=UTF-8',
+  }),
+  new Meta({
+    'http-equiv': 'X-UA-Compatible',
+    'content': 'IE=edge,chrome=1',
+  }),
+  new Meta({
+    'name': 'viewport',
+    'content': 'width=device-width, initial-scale=1.0',
+  }),
+];
+var widgets = { Absolute, Block, BoldText, BottomBar, Card, Center, CenteredCard, CenteredHeading1, CenteredHeading2, Column, DarkText, Elevation1, Elevation2, FadeIn, Fixed, Flex, FlexImg, FullHeight, FullWidth, GreyText, HEADER_FLAGS, Head, Heading1, Heading2, Horizontal, Img, Inflate, Link, List, ListItem, ListItemContent, MaterialIcon, Meta, Padding, PageBody, Relative, Row, Slide, TextWidget, Title, UnstyledElement, Vertical, WebPage, Widget };
 
 exports.Absolute = Absolute;
 exports.Block = Block;
@@ -1318,6 +1359,7 @@ exports.FlexImg = FlexImg;
 exports.FullHeight = FullHeight;
 exports.FullWidth = FullWidth;
 exports.GreyText = GreyText;
+exports.HEADER_FLAGS = HEADER_FLAGS;
 exports.Head = Head;
 exports.Heading1 = Heading1;
 exports.Heading2 = Heading2;

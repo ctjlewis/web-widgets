@@ -49,4 +49,3 @@ catch (e) {
    */
   console.log('\n');
 }
-export default {  };

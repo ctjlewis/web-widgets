@@ -8,6 +8,12 @@
 
 export { Widget } from '../lib/core.js';
 
+/**
+ * TEMPLATES
+ */
+import { TOP_LEVEL_CSS } from '../lib/templates.js';
+import { WIDGETS_FLAGS } from '../lib/core.js';
+
 import {
   Mix,
   Widget,
@@ -697,3 +703,25 @@ export class PageBody extends FadeIn {
     return TOP_LEVEL_CSS;
   }
 }
+
+/**
+ * UTILITIES
+ */
+
+/**
+ * To be used in <head>, for viewport sizing.
+ */
+export const HEADER_FLAGS = [
+  new Meta({
+    'http-equiv': 'Content-Type',
+    'content': 'text/html; charset=UTF-8',
+  }),
+  new Meta({
+    'http-equiv': 'X-UA-Compatible',
+    'content': 'IE=edge,chrome=1',
+  }),
+  new Meta({
+    'name': 'viewport',
+    'content': 'width=device-width, initial-scale=1.0',
+  }),
+];

@@ -2,7 +2,7 @@
 import { Center } from './widgets.js';
 import { addStylesheet } from '../lib/core.js';
 
-new Center().build().render();
-
-/** Add the stylesheet to the CSSOM. */
+/** Initialize CSSOM stylesheet. */
 addStylesheet();
+
+new Center().build().render();
