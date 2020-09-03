@@ -13,7 +13,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
  * Override in Closure Compiler with `--define='PRODUCTION=true'`.
  *
  * @define {boolean}
- * @ignore
  */
 var PRODUCTION = goog.define('compiler.globals.PRODUCTION', false);
 
