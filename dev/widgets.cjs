@@ -2,9 +2,11 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+/** @license MIT */
 /**
- * @license MIT
- */
+ * @fileoverview
+ * Globals to be overridden at compile-time.
+ * */
 
 /**
  * Compiler-level constant that informs CC whether or not to rename tag names.
@@ -13,7 +15,11 @@ Object.defineProperty(exports, '__esModule', { value: true });
  * @define {boolean}
  * @ignore
  */
-var PRODUCTION = false;
+var PRODUCTION = goog.define('compiler.globals.PRODUCTION', false);
+
+/**
+ * @license MIT
+ */
 
 /**
  * Global flags and settings for the library.
@@ -316,7 +322,9 @@ class Widget extends Inheritable {
      * @type {string}
      */
     this.tag = this.constructor.tag || (
-             this.constructor.name
+            WIDGETS_FLAGS.PRODUCTION
+                ? 'w'
+                : this.constructor.name
     );
 
     /**

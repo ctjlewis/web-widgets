@@ -24,5 +24,5 @@ describe('Named ESM imports', () => {
   });
 });
 
-console.log(new DevCenter().build());
-console.log(new DistCenter().build());
+console.log('Dev version of Center():', new DevCenter().build());
+console.log('Dist version of Center():', new DistCenter().build());

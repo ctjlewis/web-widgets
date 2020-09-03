@@ -1,8 +1,10 @@
 'use strict';
 
+/** @license MIT */
 /**
- * @license MIT
- */
+ * @fileoverview
+ * Globals to be overridden at compile-time.
+ * */
 
 /**
  * Compiler-level constant that informs CC whether or not to rename tag names.
@@ -11,7 +13,11 @@
  * @define {boolean}
  * @ignore
  */
-var PRODUCTION = false;
+var PRODUCTION = goog.define('compiler.globals.PRODUCTION', false);
+
+/**
+ * @license MIT
+ */
 
 /**
  * Global flags and settings for the library.
@@ -323,7 +329,9 @@ class Widget extends Inheritable {
      * @type {string}
      */
     this.tag = this.constructor.tag || (
-             this.constructor.name
+            WIDGETS_FLAGS.PRODUCTION
+                ? 'w'
+                : this.constructor.name
     );
 
     /**
@@ -620,6 +628,24 @@ class TextNode extends Widget {
 /**
  * @license MIT
  */
+/**
+ * @fileoverview
+ * A file for storing template strings.
+ */
+
+const TOP_LEVEL_CSS = `
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    font-size: 100%;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+`;
+
+/**
+ * @license MIT
+ */
 
 /**
  * A Widget with elevation `1`.
@@ -876,6 +902,28 @@ class GreyText extends DarkText {
 }
 
 /**
+ * An element that fades in.
+ */
+class FadeIn extends Widget {
+  static get styles() {
+    return `
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        `;
+  }
+
+  build() {
+    super.build();
+
+    setTimeout(() => {
+      this.element.style.opacity = 1;
+    }, 0);
+
+    return this;
+  }
+}
+
+/**
  * The content of a ListItem.
  */
 class ListItemContent extends Vertical {
@@ -940,6 +988,46 @@ class UnstyledElement extends Widget {
 }
 
 /**
+ * A <head> element.
+ */
+class Head extends UnstyledElement {
+  static get tag() {
+    return 'head';
+  }
+}
+
+/**
+ * A <title> element.
+ */
+class Title extends UnstyledElement {
+  static get tag() {
+    return 'title';
+  }
+}
+
+/**
+ * A <link> element.
+ */
+class Link extends UnstyledElement {
+  constructor(href) {
+    super();
+    this.setAttributes({
+      href: href,
+    });
+  }
+
+  static get tag() {
+    return 'link';
+  }
+
+  static get attributes() {
+    return {
+      rel: 'stylesheet',
+    };
+  }
+}
+
+/**
  * A <meta> element.
  */
 class Meta extends UnstyledElement {
@@ -949,6 +1037,91 @@ class Meta extends UnstyledElement {
 
   static get tag() {
     return `meta`;
+  }
+}
+
+
+/**
+ * Generates a new `document` and fills
+ * the screen. Overrides the default
+ * `render()` method in order to export
+ * stylesheet.
+ *
+ * @category Widgets
+ * @augments Widget
+ */
+class WebPage extends UnstyledElement {
+  constructor(...children) {
+    super(...children);
+
+    /**
+     * @type {HTMLBodyElement!}
+     */
+    this.element;
+  }
+
+  static get tag() {
+    return 'html';
+  }
+
+  static get styles() {
+    return TOP_LEVEL_CSS;
+  }
+
+  exportStylesheet() {
+    const styles = document.createElement('style');
+    const sheet = WIDGETS_FLAGS.STYLESHEET.sheet;
+
+    if (!sheet) {
+      return this;
+    }
+    else {
+      for (const rule of sheet.cssRules) {
+        styles.textContent += rule.cssText;
+      }
+    }
+
+    this.element.firstChild.appendChild(styles);
+    return this;
+  }
+
+  exportInitState() {
+    window['initState'] = this.initState.bind(this);
+    return this;
+  }
+
+  initState() {
+    console.log(document.body);
+  }
+
+  // custom render() for WebPage
+  render() {
+    if (!this.element) this.build();
+
+    this.exportStylesheet()
+        .exportInitState();
+
+    document.documentElement.replaceWith(this.element);
+    return this;
+  }
+}
+
+/**
+ * A <body> element that fades in onload.
+ */
+class PageBody extends FadeIn {
+  constructor(...children) {
+    super(...children).setAttributes({
+      onload: 'initState()',
+    });
+  }
+
+  static get tag() {
+    return 'body';
+  }
+
+  static get styles() {
+    return TOP_LEVEL_CSS;
   }
 }
 
@@ -979,4 +1152,23 @@ const HEADER_FLAGS = [
 /** Initialize CSSOM stylesheet. */
 addStylesheet();
 
-new Center().build().render();
+const body = new PageBody(
+    new Heading1('Hello'),
+    new Center(
+        new Heading2('World'),
+    ),
+);
+
+const page = new WebPage(
+    new Head(
+        ...HEADER_FLAGS,
+        new Title('Test Title'),
+        new Link('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap'),
+        new Link('https://fonts.googleapis.com/icon?family=Material+Icons&display=block'),
+    ),
+    body,
+);
+
+page.render();
+console.log(page.html);
+console.log({ PRODUCTION });
