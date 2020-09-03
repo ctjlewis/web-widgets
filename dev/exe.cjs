@@ -7,6 +7,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
  * @fileoverview
  * Globals to be overridden at compile-time.
  */
+
+/**
+ * Override `goog` global when run outside of compiler.
+ */
 if (typeof goog === 'undefined' && typeof global !== 'undefined') {
   global.goog = {
     define: (n, v) => v,
@@ -20,6 +24,19 @@ if (typeof goog === 'undefined' && typeof global !== 'undefined') {
  * @define {boolean}
  */
 var PRODUCTION = goog.define('compiler.globals.PRODUCTION', false);
+
+/**
+ * Top-level CSS which should apply to any webpage.
+ */
+const TOP_LEVEL_CSS = `
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    font-size: 100%;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+`;
 
 /**
  * @license MIT
@@ -634,24 +651,6 @@ class TextNode extends Widget {
 /**
  * @license MIT
  */
-/**
- * @fileoverview
- * A file for storing template strings.
- */
-
-const TOP_LEVEL_CSS = `
-    -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth;
-    font-size: 100%;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-`;
-
-/**
- * @license MIT
- */
 
 /**
  * A Widget with elevation `1`.
@@ -1177,7 +1176,6 @@ const page = new WebPage(
 
 page.render();
 console.log(page.html);
-console.log({ PRODUCTION });
 var exe = {  };
 
 exports.default = exe;

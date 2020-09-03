@@ -11,7 +11,7 @@ export { Widget } from '../lib/core.js';
 /**
  * TEMPLATES
  */
-import { TOP_LEVEL_CSS } from '../lib/templates.js';
+import { TOP_LEVEL_CSS } from '../lib/globals.js';
 import { WIDGETS_FLAGS } from '../lib/core.js';
 
 import {

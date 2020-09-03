@@ -26,9 +26,11 @@
     "build:exe": "node .gnv/npm/buildExe.js",
     "postbuild": "npm run test",
     "minify:dist": "rollup -c .gnv/rollup.dist.minify.js",
+    "exe": "enable-browser-mode dist/exe.js",
+    "save:exe": "npm run --silent exe > index.html",
     "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
     "clean": "rm -rf dist/* && rm -rf dev/*",
-    "test": "mocha && enable-browser-mode dist/exe.js"
+    "test": "mocha && npm run save:exe"
   },
   "repository": {
     "type": "git",

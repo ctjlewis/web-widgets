@@ -1,4 +1,8 @@
 /** @license MIT */
+/**
+ * @fileoverview
+ * For a Web Widgets project, the exe export is where we will build a page out.
+ */
 
 import {
   Center,
@@ -36,6 +40,3 @@ const page = new WebPage(
 
 page.render();
 console.log(page.html);
-
-import { PRODUCTION } from '../lib/globals.js';
-console.log({ PRODUCTION });
