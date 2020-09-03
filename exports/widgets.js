@@ -6,13 +6,13 @@
  * Built-in Widgets.
  */
 
-export { Widget } from './core.js';
+export { Widget } from '../lib/core.js';
 
 import {
   Mix,
   Widget,
   WidgetLike,
-} from './core.js';
+} from '../lib/core.js';
 
 /**
  * A Widget with elevation `1`.

@@ -1,11 +1,12 @@
 /** @license MIT */
 
+require('chai/register-expect');
 require('enable-browser-mode');
 
 const {
   Widget,
   Center,
-} = require('../dist/node.cjs');
+} = require('../dist/widgets.cjs');
 
 describe('Named CJS imports', () => {
   it('Should work for various widgets', () => {

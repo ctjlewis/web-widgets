@@ -1,4 +1,8 @@
 /** @license MIT */
+import { Center } from './widgets.js';
+import { addStylesheet } from '../lib/core.js';
 
-import { Widget } from '../lib/widgets.js';
-console.log(Widget);
+new Center().build().render();
+
+/** Add the stylesheet to the CSSOM. */
+addStylesheet();

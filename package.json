@@ -9,10 +9,10 @@
     "web-widgets": "./dist/cli.cjs",
     "web-widgets-dev": "./exports/cli.js"
   },
-  "main": "./dist/node.cjs",
+  "main": "./dist/widgets.cjs",
   "exports": {
-    "import": "./dist/node.mjs",
-    "require": "./dist/node.cjs"
+    "import": "./dist/widgets.mjs",
+    "require": "./dist/widgets.cjs"
   },
   "scripts": {
     "create-bin": "mkdir -p dist && touch dist/cli.cjs",
