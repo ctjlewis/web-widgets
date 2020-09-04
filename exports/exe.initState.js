@@ -4,4 +4,4 @@
 import page from '../lib/page.js';
 
 /** Execute `initState`. */
-widget.initState();
+page.initState();
