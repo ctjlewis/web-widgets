@@ -19,7 +19,7 @@ if (typeof goog === 'undefined' && typeof global !== 'undefined') {
  *
  * @define {boolean}
  */
-var PRODUCTION = goog.define('compiler.globals.PRODUCTION', false);
+var PRODUCTION = false;
 
 /**
  * Top-level CSS which should apply to any webpage.
@@ -33,10 +33,6 @@ const TOP_LEVEL_CSS = `
     padding: 0;
     margin: 0;
 `;
-
-/**
- * @license MIT
- */
 
 /**
  * Global flags and settings for the library.
@@ -88,6 +84,10 @@ const WIDGETS_FLAGS = {
    */
   TIMES: [],
 };
+
+/**
+ * @license MIT
+ */
 
 /**
  * Allows for Widget mixins, so that we can extend multiple Widgets at once.
@@ -339,9 +339,7 @@ class Widget extends Inheritable {
      * @type {string}
      */
     this.tag = this.constructor.tag || (
-            WIDGETS_FLAGS.PRODUCTION
-                ? 'w'
-                : this.constructor.name
+             this.constructor.name
     );
 
     /**
@@ -1283,21 +1281,14 @@ class WebPage extends UnstyledElement {
     return this;
   }
 
-  exportInitState() {
-    window['initState'] = this.initState.bind(this);
-    return this;
-  }
-
   initState() {
-    console.log(document.body);
+    console.log('initState called!');
   }
 
   // custom render() for WebPage
   render() {
     if (!this.element) this.build();
-
-    this.exportStylesheet()
-        .exportInitState();
+    this.exportStylesheet();
 
     document.documentElement.replaceWith(this.element);
     return this;
@@ -1308,18 +1299,22 @@ class WebPage extends UnstyledElement {
  * A <body> element that fades in onload.
  */
 class PageBody extends FadeIn {
-  constructor(...children) {
-    super(...children).setAttributes({
-      onload: 'initState()',
-    });
-  }
-
   static get tag() {
     return 'body';
   }
 
   static get styles() {
     return TOP_LEVEL_CSS;
+  }
+
+  build() {
+    /** Call `FadeIn.build()`. */
+    super.build();
+
+    /** If PRODUCTION, add <script> to <body> containing exe.initState. */
+    {
+      this.element.addEventListener('load', this.initState);
+    }
   }
 }
 

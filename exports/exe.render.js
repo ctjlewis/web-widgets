@@ -28,7 +28,7 @@ const body = new PageBody(
     ),
 );
 
-const page = new WebPage(
+const widget = new WebPage(
     new Head(
         ...HEADER_FLAGS,
         new Title('Test Title'),
@@ -38,5 +38,9 @@ const page = new WebPage(
     body,
 );
 
-page.render();
-console.log(page.html);
+/**
+ * Render page and export as `widget`.
+ */
+widget.render();
+export { widget };
+

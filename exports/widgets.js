@@ -6,14 +6,22 @@
  * Built-in Widgets.
  */
 
+/**
+ * Expose parent `Widget` class from Core.
+ */
 export { Widget } from '../lib/core.js';
 
 /**
  * TEMPLATES
  */
-import { TOP_LEVEL_CSS } from '../lib/globals.js';
-import { WIDGETS_FLAGS } from '../lib/core.js';
+import {
+  TOP_LEVEL_CSS,
+  WIDGETS_FLAGS,
+} from '../lib/globals.js';
 
+/**
+ * CORE UTILS
+ */
 import {
   Mix,
   Widget,
@@ -664,21 +672,14 @@ export class WebPage extends UnstyledElement {
     return this;
   }
 
-  exportInitState() {
-    window['initState'] = this.initState.bind(this);
-    return this;
-  }
-
   initState() {
-    console.log(document.body);
+    console.log('initState called!');
   }
 
   // custom render() for WebPage
   render() {
     if (!this.element) this.build();
-
-    this.exportStylesheet()
-        .exportInitState();
+    this.exportStylesheet();
 
     document.documentElement.replaceWith(this.element);
     return this;
@@ -689,18 +690,28 @@ export class WebPage extends UnstyledElement {
  * A <body> element that fades in onload.
  */
 export class PageBody extends FadeIn {
-  constructor(...children) {
-    super(...children).setAttributes({
-      onload: 'initState()',
-    });
-  }
-
   static get tag() {
     return 'body';
   }
 
   static get styles() {
     return TOP_LEVEL_CSS;
+  }
+
+  build() {
+    /** Call `FadeIn.build()`. */
+    super.build();
+
+    /** If PRODUCTION, add <script> to <body> containing exe.initState. */
+    if (WIDGETS_FLAGS.PRODUCTION) {
+      const script = document.createElement('script');
+      script.src = 'dist/exe.initState.js';
+      this.element.appendChild(script);
+    }
+    /** Otherwise, add as eventListener. */
+    else {
+      this.element.addEventListener('load', this.initState);
+    }
   }
 }
 
