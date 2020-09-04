@@ -23,7 +23,7 @@
     "build": "npm run build:dev && npm run build:dist && npm run build:exe && npm run format-clis",
     "build:dev": "rollup -c .gnv/rollup.dev.es.js && rollup -c .gnv/rollup.dev.cjs.js",
     "build:dist": "rollup -c .gnv/rollup.dist.es.js && rollup -c .gnv/rollup.dist.cjs.js && npm run minify:dist",
-    "build:exe": "node .gnv/npm/buildExes.js",
+    "build:exe": "node .gnv/npm/buildExes.js && npm run exe:save",
     "postbuild": "npm run test",
     "minify:dist": "rollup -c .gnv/rollup.dist.minify.js",
     "exe": "enable-browser-mode dist/exe.js",
@@ -31,7 +31,8 @@
     "exe:save": "npm run --silent exe:freeze > widget.freeze.html",
     "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
     "clean": "rm -rf dist/* && rm -rf dev/*",
-    "test": "mocha && npm run exe:save"
+    "serve": "node .gnv/npm/serve.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -55,15 +56,16 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "enable-browser-mode": "latest",
+    "express": "^4.17.1",
     "glob": "7.1.6",
     "google-closure-compiler": "20200719.0.0",
     "mocha": "8.0.1",
     "rollup": "2.21.0",
+    "rollup-plugin-bundle-size": "latest",
     "rollup-plugin-disable-packages": "3.0.0",
     "rollup-plugin-export-default": "1.4.0",
-    "rollup-plugin-preserve-shebang": "1.0.1",
-    "rollup-plugin-bundle-size": "latest",
-    "rollup-plugin-import-meta-url": "5.0.0"
+    "rollup-plugin-import-meta-url": "5.0.0",
+    "rollup-plugin-preserve-shebang": "1.0.1"
   },
   "dependencies": {}
 }

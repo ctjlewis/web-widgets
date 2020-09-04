@@ -1,7 +1,7 @@
 /** @license MIT */
 
 /** Import rendered exe widget. */
-import { widget } from './exe.render.js';
+import page from '../lib/page.js';
 
 /** Log HTML. */
-console.log(widget.html);
+console.log(page.build().html);

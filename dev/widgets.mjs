@@ -680,8 +680,7 @@ class Block extends Widget {
 }
 
 /**
- * Adds 16px of padding. Override
- * `style` to customize.
+ * Adds 16px of padding. Override `style` to customize.
  *
  * @category Widgets
  * @augments Widget
@@ -774,10 +773,8 @@ class FullHeight extends Widget {
 // END POSITIONAL WIDGETS
 
 /**
- * By descending text-like Widgets
- * from `TextWidget`, we can set
- * default text properties like
- * `color` and `font-family`.
+ * By descending text-like Widgets from `TextWidget`, we can set default text
+ * properties like `color` and `font-family`.
  *
  * @category Widgets
  * @augments Widget
@@ -816,8 +813,7 @@ class Heading2 extends TextWidget {
 }
 
 /**
- * A boring `h1` element, but centered inside
- * its container.
+ * A boring `h1` element, but centered inside its container.
  *
  * @category Widgets
  * @augments Widget
@@ -825,8 +821,7 @@ class Heading2 extends TextWidget {
 class CenteredHeading1 extends Mix(Heading1, Center) {}
 
 /**
- * A boring `h2` element, but centered
- * inside its container.
+ * A boring `h2` element, but centered inside its container.
  *
  * @category Widgets
  * @augments Widget
@@ -834,8 +829,7 @@ class CenteredHeading1 extends Mix(Heading1, Center) {}
 class CenteredHeading2 extends Mix(Heading2, Center) {}
 
 /**
- * Flex Widgets display with `display: flex`
- * and expose the `setFlex` method.
+ * Flex Widgets display with `display: flex` and expose the `setFlex` method.
  *
  * @category Widgets
  * @augments Widget
@@ -855,8 +849,7 @@ class Flex extends Widget {
   /**
    * Set this Widget's flex value.
    *
-   * @param {number!} flex
-   * Flex value for this widget.
+   * @param {number!} flex Flex value for this widget.
    *
    * @return {Widget} this
    */
@@ -986,8 +979,7 @@ class Img extends Widget {
 }
 
 /**
- * A Widget for displaying flexible
- * images.
+ * A Widget for displaying flexible images.
  *
  * @category Widgets
  */
@@ -1006,8 +998,7 @@ class FlexImg extends Inflate {
 }
 
 /**
- * A horizontal layout is a full-width
- * flex row.
+ * A horizontal layout is a full-width flex row.
  *
  * @category Widgets
  * @augments Widget
@@ -1019,8 +1010,7 @@ class Horizontal extends Mix(FullWidth, Row) {
 }
 
 /**
- * A vertical layout is a full-height
- * flex column.
+ * A vertical layout is a full-height flex column.
  *
  * @category Widgets
  * @augments Widget
@@ -1054,9 +1044,23 @@ class GreyText extends DarkText {
 }
 
 /**
+ * A Widget with state.
+ */
+class StatefulWidget extends Widget {
+  build() {
+    super.build();
+    this.initState();
+  }
+
+  initState() {
+    console.log('initState called');
+  }
+}
+
+/**
  * An element that fades in.
  */
-class FadeIn extends Widget {
+class FadeIn extends StatefulWidget {
   static get styles() {
     return `
             opacity: 0;
@@ -1064,14 +1068,10 @@ class FadeIn extends Widget {
         `;
   }
 
-  build() {
-    super.build();
-
-    setTimeout(() => {
-      this.element.style.opacity = 1;
-    }, 0);
-
-    return this;
+  initState() {
+    super.initState();
+    console.log('FadeIn initState');
+    this.element.style.opacity = 1;
   }
 }
 
@@ -1082,8 +1082,7 @@ class FadeIn extends Widget {
  */
 class MaterialIcon extends Widget {
   /**
-   * The name of the material icon,
-   * i.e. `add`.
+   * The name of the material icon, i.e. `add`.
    *
    * @param {string} icon
    */
@@ -1139,13 +1138,8 @@ class ListItemContent extends Vertical {
  */
 class ListItem extends Mix(Row, Elevation1) {
   /**
-   * @param {{
-   *  left: WidgetLike,
-   *  title: WidgetLike,
-   *  subtitle: WidgetLike,
-   *  right: WidgetLike
-   * }} options
-   * Options for the ListItem.
+   * @param {{left: WidgetLike, title: WidgetLike, subtitle: WidgetLike, right:
+   *  WidgetLike}} options Options for the ListItem.
    */
   constructor({ left, title, subtitle, right }) {
     super(
@@ -1238,10 +1232,8 @@ class Meta extends UnstyledElement {
 
 
 /**
- * Generates a new `document` and fills
- * the screen. Overrides the default
- * `render()` method in order to export
- * stylesheet.
+ * Generates a new `document` and fills the screen. Overrides the default
+ * `render()` method in order to export stylesheet.
  *
  * @category Widgets
  * @augments Widget
@@ -1281,11 +1273,6 @@ class WebPage extends UnstyledElement {
     return this;
   }
 
-  initState() {
-    console.log('initState called!');
-  }
-
-  // custom render() for WebPage
   render() {
     if (!this.element) this.build();
     this.exportStylesheet();
@@ -1305,16 +1292,6 @@ class PageBody extends FadeIn {
 
   static get styles() {
     return TOP_LEVEL_CSS;
-  }
-
-  build() {
-    /** Call `FadeIn.build()`. */
-    super.build();
-
-    /** If PRODUCTION, add <script> to <body> containing exe.initState. */
-    {
-      this.element.addEventListener('load', this.initState);
-    }
   }
 }
 

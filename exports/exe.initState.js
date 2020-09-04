@@ -1,7 +1,7 @@
 /** @license MIT */
 
 /** Import widget from rendered exe. */
-import { widget } from './exe.render.js';
+import page from '../lib/page.js';
 
 /** Execute `initState`. */
 widget.initState();
