@@ -10,5 +10,5 @@
 /** Import rendered exe widget. */
 import page from '../lib/page.js';
 
-/** Log HTML. */
-console.log(`<!DOCTYPE html>${page.build().html}`);
+/** Freeze Widget and dump to stdout. */
+page.freeze();

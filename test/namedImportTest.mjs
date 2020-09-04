@@ -5,12 +5,12 @@ import 'enable-browser-mode';
 
 import {
   Widget as DevWidget,
-  CenteredElement as DevCenter,
+  Center as DevCenter,
 } from '../dev/widgets.mjs';
 
 import {
   Widget as DistWidget,
-  CenteredElement as DistCenter,
+  Center as DistCenter,
 } from '../dist/widgets.mjs';
 
 describe('Named ESM imports', () => {
