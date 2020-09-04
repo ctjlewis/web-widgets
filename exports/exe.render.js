@@ -3,6 +3,6 @@
 import page from '../lib/page.js';
 
 /**
- * Render page and export as `widget`.
+ * Render page and export.
  */
-page.render();
+export default page.render();
