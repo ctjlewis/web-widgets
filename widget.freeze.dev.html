@@ -5,12 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Title</title>
-    <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&amp;display=swap"
-    defer>
-    <link rel="stylesheet"
-    href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=block"
-    defer>
+
+    <!-- Google Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&amp;display=swap">
+    </noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap">
+    </noscript>
+    
   </head>
   <body>
     <script type="module" src="exports/exe.freeze.js"></script>
