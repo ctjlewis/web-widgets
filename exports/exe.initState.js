@@ -11,6 +11,7 @@
 // const getElement = () => document.getElementById(page.attributes.id);
 // requestAnimationFrame(() => page.initState());
 
-requestAnimationFrame(() => {
-  document.body.style.opacity = 1;
-});
+import { PageBody } from '../lib/widgets.js';
+
+const pageBody = PageBody.from(document.body);
+requestAnimationFrame(() => pageBody.initState());
