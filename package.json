@@ -57,6 +57,7 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "enable-browser-mode": "latest",
+    "reload": "3.1.0",
     "express": "^4.17.1",
     "glob": "7.1.6",
     "google-closure-compiler": "20200719.0.0",
@@ -66,7 +67,9 @@
     "rollup-plugin-disable-packages": "3.0.0",
     "rollup-plugin-export-default": "1.4.0",
     "rollup-plugin-import-meta-url": "5.0.0",
-    "rollup-plugin-preserve-shebang": "1.0.1"
+    "rollup-plugin-preserve-shebang": "1.0.1",
+    "livereload": "latest",
+    "connect-livereload": "latest"
   },
   "dependencies": {}
 }
