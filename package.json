@@ -16,7 +16,7 @@
   },
   "scripts": {
     "create-bin": "mkdir -p dist && touch dist/cli.cjs",
-    "cold-start": "npm run gnv-get && gnv-dev build",
+    "cold-start": "npm run gnv-install-dev && gnv-dev build",
     "gnv-install": "npm run create-bin && node .gnv/npm/install.js",
     "gnv-install-dev": "npm run create-bin && node .gnv/npm/installDev.js",
     "prebuild": "npm run clean",
@@ -33,7 +33,8 @@
     "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
     "clean": "rm -rf dist/* && rm -rf dev/*",
     "serve": "node .gnv/npm/serve.js",
-    "test": "mocha"
+    "test": "mocha && npm run test:exe",
+    "test:exe": "if [ -f dist/exe.js ]; then enable-browser-mode dist/exe.js; fi"
   },
   "repository": {
     "type": "git",
