@@ -11,8 +11,8 @@
 // const getElement = () => document.getElementById(page.attributes.id);
 // requestAnimationFrame(() => page.initState());
 
-import { PageBody, StatefulWidget } from '../lib/widgets.js';
+import { BodyWidget, StatefulWidget } from '../lib/widgets.js';
 
 /** @type {StatefulWidget} */
-const pageBody = PageBody.from(document.body);
-requestAnimationFrame(() => pageBody.initState());
+const body = BodyWidget.from(document.body);
+requestAnimationFrame(() => body.initState());
