@@ -11,4 +11,4 @@
 import page from '../lib/page.js';
 
 /** Freeze Widget and dump to stdout. */
-page.freeze();
+console.log(page.freeze());
