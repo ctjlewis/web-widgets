@@ -29,7 +29,7 @@
     "exe": "enable-browser-mode dist/exe.js",
     "exe:freeze": "enable-browser-mode dist/exe.freeze.js",
     "exe:freeze:dev": "cat widget.freeze.html > widget.freeze.dev.html && sed -i s,dist/exe.initState.js,exports/exe.initState.js,g widget.freeze.dev.html",
-    "exe:save": "npm run --silent exe:freeze > widget.freeze.html && npm run exe:freeze:dev",
+    "exe:save": "npm run --silent exe:freeze > widget.freeze.html && npm run exe:freeze:dev && sed -i -e 's, type=\"module\",,g' widget.freeze.html",
     "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
     "clean": "rm -rf dist/* && rm -rf dev/*",
     "serve": "node .gnv/npm/serve.js",

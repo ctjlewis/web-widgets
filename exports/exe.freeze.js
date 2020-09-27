@@ -9,16 +9,15 @@
 
 /** Import rendered exe widget. */
 import page from '../lib/page.js';
-import { Script } from '../lib/widgets.js';
+import { DebugScript } from '../lib/widgets.js';
 
-const attrs = {
-  src: 'dist/exe.initState.js',
-};
-
-// if (window.location.href.includes('.dev')) attrs.type = 'module';
-
-page.build().append(
-    new Script().setAttributes(attrs),
+page.append(
+    new DebugScript(
+        'exports/exe.initState.js',
+        'dist/exe.initState.js',
+    ).setAttributes({
+      type: 'module',
+    }),
 );
 
 requestAnimationFrame(() => console.log(page.freeze()));

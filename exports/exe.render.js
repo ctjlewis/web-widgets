@@ -1,26 +1,16 @@
 /** @license MIT */
 
-import { DEBUG } from '../lib/globals.js';
-import { Script } from '../lib/widgets.js';
-
 import page from '../lib/page.js';
-
-const attrs = {
-  src: (
-    DEBUG
-      ? 'exports/exe.initState.js'
-      : 'dist/exe.initState.js'
-  ),
-};
-
-/** Raw source will be ES6 module. */
-if (DEBUG) attrs.type = 'module';
+import { DebugScript } from '../lib/widgets.js';
 
 /**
  * Render page and export.
  */
 export default page.append(
-    new Script().setAttributes(attrs),
+    new DebugScript(
+        'exports/exe.initState.js',
+        'dist/exe.initState.js',
+    ),
 ).render();
 
 /**
@@ -30,12 +20,12 @@ import * as widgets from '../lib/widgets.js';
 import * as globals from '../lib/globals.js';
 import * as devWidgets from '../lib/page.js';
 
-import { debugLog, PRODUCTION } from '../lib/globals.js';
+import { DEBUG, debugLog } from '../lib/globals.js';
 
 /**
  * If dev mode, assign all exports to the global object and cache all styles.
  */
-if (!PRODUCTION) {
+if (DEBUG) {
   /**
    * Assign all to `window`.
    */
