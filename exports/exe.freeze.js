@@ -11,4 +11,5 @@
 import page from '../lib/page.js';
 
 /** Freeze Widget and dump to stdout. */
-console.log(page.freeze());
+// console.log(document.readyState);
+requestAnimationFrame(() => console.log(page.freeze()));
