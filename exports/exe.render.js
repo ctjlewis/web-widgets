@@ -1,11 +1,27 @@
 /** @license MIT */
 
+import { DEBUG } from '../lib/globals.js';
+import { Script } from '../lib/widgets.js';
+
 import page from '../lib/page.js';
+
+const attrs = {
+  src: (
+    DEBUG
+      ? 'exports/exe.initState.js'
+      : 'dist/exe.initState.js'
+  ),
+};
+
+/** Raw source will be ES6 module. */
+if (DEBUG) attrs.type = 'module';
 
 /**
  * Render page and export.
  */
-export default page.render();
+export default page.append(
+    new Script().setAttributes(attrs),
+).render();
 
 /**
  * For binding to window in dev mode.
