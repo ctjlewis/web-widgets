@@ -8,20 +8,10 @@
  */
 
 /** Import rendered exe widget. */
-import page from '../lib/page.js';
-import { DebugScript } from '../lib/widgets.js';
+import { default as page } from './exe.namespace.js';
 
 /** Set freeze flag. */
 window['FREEZE_MODE'] = true;
 window['NO_RENDER'] = true;
-
-page.append(
-    new DebugScript(
-        'exports/exe.initState.js',
-        'dist/exe.initState.js',
-    ).setAttributes({
-      type: 'module',
-    }),
-);
 
 requestAnimationFrame(() => console.log(page.freeze()));
