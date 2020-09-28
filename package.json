@@ -33,8 +33,9 @@
     "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
     "clean": "rm -rf dist/* && rm -rf dev/*",
     "serve": "node .gnv/npm/serve.js",
-    "test": "mocha && npm run test:exe",
-    "test:exe": "if [ -f dist/exe.js ]; then enable-browser-mode dist/exe.js; fi"
+    "test": "mocha && npm run test:exe && npm run test:size",
+    "test:exe": "if [ -f dist/exe.js ]; then enable-browser-mode dist/exe.js; fi",
+    "test:size": "gzip -9 -c widget.freeze.html | wc -c | numfmt --to=iec-i --suffix=B --padding=10"
   },
   "repository": {
     "type": "git",
