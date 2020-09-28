@@ -6,15 +6,16 @@ debugLog('inside initState');
 
 /** Set a flag to not actually render when importing from the render script. */
 window['NO_RENDER'] = true;
+import './exe.render.js';
 
-import {
-  BodyWidget,
-} from './exe.render.js';
+// import {
+//   BodyWidget,
+// } from './exe.render.js';
 
-debugLog(
-    'Compiled BodyWidget name inside exe.initState.js:',
-    BodyWidget.name,
-);
+// debugLog(
+//     'Compiled BodyWidget name inside exe.initState.js:',
+//     BodyWidget.name,
+// );
 
 /**
  * We need to render a frame in the blank state in order for CSS transitions to
@@ -28,13 +29,13 @@ debugLog(
  * Double-wrapping with rAF is ugly but necessary in this unique case, to ensure
  * there is a first paint to transition *from* for any first-frame transitions.
  */
-requestAnimationFrame(
-    () => {
-      requestAnimationFrame(
-          () => {
-            const body = BodyWidget.from(document.body);
-            body.initState();
-          },
-      );
-    },
-);
+// requestAnimationFrame(
+//     () => {
+//       requestAnimationFrame(
+//           () => {
+//             const body = BodyWidget.from(document.body);
+//             body.initState();
+//           },
+//       );
+//     },
+// );
