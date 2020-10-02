@@ -74,8 +74,8 @@
     "rollup-plugin-export-default": "1.4.0",
     "rollup-plugin-import-meta-url": "5.0.0",
     "rollup-plugin-preserve-shebang": "1.0.1",
-    "livereload": "latest",
-    "connect-livereload": "latest"
+    "@rollup/plugin-babel": "latest",
+    "babel-plugin-transform-class-properties": "latest"
   },
   "dependencies": {}
 }
