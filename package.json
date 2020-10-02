@@ -75,7 +75,8 @@
     "rollup-plugin-import-meta-url": "5.0.0",
     "rollup-plugin-preserve-shebang": "1.0.1",
     "@rollup/plugin-babel": "latest",
-    "babel-plugin-transform-class-properties": "latest"
+    "babel-plugin-transform-class-properties": "latest",
+    "@babel/core": "latest"
   },
   "dependencies": {}
 }
