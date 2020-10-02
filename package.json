@@ -36,8 +36,8 @@
     "serve": "node .gnv/npm/serve.js",
     "test": "mocha && npm run test:exe",
     "test:exe": "if [ -f dist/exe.js ]; then enable-browser-mode dist/exe.js; fi",
-    "size": "echo 'After gzip, not inlined:' && (gzip -9 -c widget.freeze.html & gzip -9 -c dist/exe.namespace.js) | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
-    "size-minified": "echo 'Inlined and minified:' && gzip -9 -c widget.freeze.html | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
+    "size": "echo 'Gzipped, NOT inlined:' && (gzip -9 -c widget.freeze.html & gzip -9 -c dist/exe.namespace.js) | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
+    "size-minified": "echo 'Gzipped, inlined:' && gzip -9 -c widget.freeze.html | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
     "minify-and-compare": "npm run size && npm run minify:freeze && npm run size-minified"
   },
   "repository": {
