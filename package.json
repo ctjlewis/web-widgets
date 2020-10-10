@@ -71,6 +71,7 @@
     "mocha": "8.0.1",
     "rollup": "2.21.0",
     "rollup-plugin-bundle-size": "latest",
+    "rollup-plugin-class-fields-to-getters": "1.0.0",
     "rollup-plugin-disable-packages": "3.0.0",
     "rollup-plugin-export-default": "1.4.0",
     "rollup-plugin-import-meta-url": "5.0.0",
