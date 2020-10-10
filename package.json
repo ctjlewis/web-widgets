@@ -26,7 +26,7 @@
     "build:exe": "node .gnv/npm/buildExes.js && npm run exe:save",
     "postbuild": "npm run test",
     "minify:dist": "rollup -c .gnv/rollup/dist.minify.js",
-    "minify:freeze": "node .gnv/web-widgets/minifyFreeze.js && html-minifier-terser --collapse-whitespace --remove-comments --remove-script-type-attributes --minify-css true widget.freeze.html -o widget.freeze.html",
+    "minify:freeze": "node .gnv/web-widgets/minifyFreeze.js && html-minifier-terser --collapse-whitespace --remove-comments --remove-script-type-attributes --minify-css true widget.freeze.html -o widget.freeze.html && gzip -9 -c widget.freeze.html > widget.freeze.html.gz",
     "exe": "enable-browser-mode dist/exe.js",
     "exe:freeze": "enable-browser-mode dist/exe.freeze.js",
     "exe:freeze:dev": "cat widget.freeze.html > widget.freeze.dev.html && sed -i s,dist/exe.namespace.js,exports/exe.namespace.js,g widget.freeze.dev.html",
@@ -36,7 +36,7 @@
     "test": "mocha && npm run test:exe",
     "test:exe": "if [ -f dist/exe.js ]; then enable-browser-mode dist/exe.js; fi",
     "size": "echo 'Gzipped, NOT inlined:' && (gzip -9 -c widget.freeze.html & gzip -9 -c dist/exe.namespace.js) | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
-    "size-minified": "echo 'Gzipped, inlined:' && gzip -9 -c widget.freeze.html | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
+    "size-minified": "echo 'Gzipped, inlined:' && cat widget.freeze.html.gz | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
     "minify-and-compare": "npm run size && npm run minify:freeze && npm run size-minified"
   },
   "repository": {
