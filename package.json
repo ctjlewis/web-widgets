@@ -33,6 +33,7 @@
     "exe:save": "npm run --silent exe:freeze > widget.freeze.html && npm run exe:freeze:dev && sed -i -e 's, type=\"module\",,g' widget.freeze.html",
     "format-clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
     "clean": "rm -rf dist/* && rm -rf dev/*",
+    "serve": "serve",
     "test": "mocha && npm run test:exe",
     "test:exe": "if [ -f dist/exe.js ]; then enable-browser-mode dist/exe.js; fi",
     "size": "echo 'Gzipped, NOT inlined:' && (gzip -9 -c widget.freeze.html & gzip -9 -c dist/exe.namespace.js) | wc -c | numfmt --to=iec-i --suffix=B --padding=10",
@@ -74,7 +75,8 @@
     "rollup-plugin-disable-packages": "3.0.0",
     "rollup-plugin-export-default": "1.4.0",
     "rollup-plugin-import-meta-url": "5.0.0",
-    "rollup-plugin-preserve-shebang": "1.0.1"
+    "rollup-plugin-preserve-shebang": "1.0.1",
+    "serve": "latest"
   },
   "dependencies": {}
 }
