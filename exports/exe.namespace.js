@@ -6,10 +6,5 @@
  * Closure Compiler.
  */
 
-/**
- * A stack for triggering initState calls.
- */
-window.HYDRATE_STACK = [];
-
 export { default } from '../lib/page.js';
 export * from './widgets.js';
