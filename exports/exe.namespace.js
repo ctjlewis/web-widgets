@@ -8,3 +8,5 @@
 
 export { default } from '../lib/page.js';
 export * from './widgets.js';
+
+window.NAMESPACE_MODE = true;
