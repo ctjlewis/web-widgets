@@ -11,7 +11,7 @@
 import { default as page } from './exe.namespace.js';
 
 /** Set freeze flag. */
-window.FREEZE_MODE = true;
-window['NO_RENDER'] = true;
+globalThis.FREEZE_MODE = true;
+globalThis['NO_RENDER'] = true;
 
 requestAnimationFrame(() => console.log(page.freeze()));

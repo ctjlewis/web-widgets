@@ -1,10 +1,4 @@
 /** @license */
 
-const stylesArray = [
-  'font-color: red',
-  'font-size: 2rem',
-];
-
-console.log(
-    `.testClass {${stylesArray.join(';')}}`,
-);
+import { ScrollIndicator } from './lib/page.js';
+console.log(ScrollIndicator)
