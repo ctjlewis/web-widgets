@@ -15,7 +15,6 @@
     "require": "./dist/widgets.cjs"
   },
   "scripts": {
-    "checkin": "yarn build && git add --all && git stage --all && git commit -m 'stable'",
     "create-bin": "mkdir -p dist && touch dist/cli.cjs",
     "cold-start": "npm run gnv-install-dev && gnv-dev build",
     "gnv-install": "npm run create-bin && node .gnv/npm/install.js",
