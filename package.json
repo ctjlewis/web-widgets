@@ -1,6 +1,6 @@
 {
   "name": "web-widgets",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "",
   "author": "Christian Lewis <hello@trytelework.com>",
   "license": "MIT",
@@ -31,7 +31,7 @@
     "exe:freeze": "enable-browser-mode dist/exe.freeze.js",
     "exe:freeze:dev": "cat widget.freeze.html > widget.freeze.dev.html && sed -i s,dist/exe.namespace.js,exports/exe.namespace.js,g widget.freeze.dev.html",
     "exe:save": "npm run --silent exe:freeze > widget.freeze.html && npm run exe:freeze:dev && sed -i -e 's, type=\"module\",,g' widget.freeze.html",
-    "format:clis": "sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true)",
+    "format:clis": "if [ -f dist/cli.* ]; then sed -i '1i #!/usr/bin/env node' dist/cli.* && (chmod -f +x exports/cli.* dev/cli.* dist/cli.* || true); fi",
     "clean": "rm -rf dist/* && rm -rf dev/*",
     "serve": "serve",
     "test": "mocha && npm run test:exe",
