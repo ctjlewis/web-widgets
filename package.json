@@ -1,12 +1,13 @@
 {
   "name": "web-widgets",
-  "version": "1.1.4",
+  "version": "1.1.6",
   "description": "",
   "author": "Christian Lewis <hello@trytelework.com>",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "web-widgets": "./dist/cli.cjs"
+    "web-widgets": "./dist/cli.cjs",
+    "web-widgets-dev": "./exports/cli.js"
   },
   "main": "./dist/widgets.cjs",
   "module": "./dist/widgets.mjs",
