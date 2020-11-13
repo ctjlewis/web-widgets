@@ -10,6 +10,7 @@
     "web-widgets-dev": "./exports/cli.js"
   },
   "main": "./dist/widgets.cjs",
+  "module": "./dist/widgets.mjs",
   "exports": {
     "import": "./dist/widgets.mjs",
     "require": "./dist/widgets.cjs"
@@ -22,10 +23,10 @@
     "prebuild": "npm run clean",
     "build": "npm run build:dev && npm run build:dist && npm run build:exe && npm run format:clis && npm run minify-and-compare",
     "build:dev": "rollup -c .gnv/rollup/dev.es.js && rollup -c .gnv/rollup/dev.cjs.js",
-    "build:dist": "rollup -c .gnv/rollup/dist.es.js && rollup -c .gnv/rollup/dist.cjs.js && npm run minify:dist",
+    "build:dist": "rollup --silent -c .gnv/rollup/dist.es.js && rollup --silent -c .gnv/rollup/dist.cjs.js && npm run minify:dist",
     "build:exe": "node .gnv/npm/buildExes.js && npm run exe:save",
     "postbuild": "npm run test",
-    "minify:dist": "rollup -c .gnv/rollup/dist.minify.js",
+    "minify:dist": "rollup --silent -c .gnv/rollup/dist.minify.js",
     "minify:freeze": "node .gnv/web-widgets/minifyFreeze.js && html-minifier-terser --collapse-whitespace --remove-comments --remove-script-type-attributes --minify-css true widget.freeze.html -o widget.freeze.html && gzip -9 -c widget.freeze.html > widget.freeze.html.gz",
     "exe": "enable-browser-mode dist/exe.js",
     "exe:freeze": "enable-browser-mode dist/exe.freeze.js",
