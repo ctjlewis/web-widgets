@@ -16,10 +16,10 @@
     "require": "./dist/widgets.cjs"
   },
   "scripts": {
-    "create-bin": "mkdir -p dist && touch dist/cli.cjs",
-    "cold-start": "npm run gnv-install-dev && gnv-dev build",
     "gnv-install": "npm run create-bin && node .gnv/npm/install.js",
     "gnv-install-dev": "npm run create-bin && node .gnv/npm/installDev.js",
+    "create-bin": "mkdir -p dist && touch dist/cli.cjs",
+    "cold-start": "npm run gnv-install-dev && gnv-dev build",
     "prebuild": "npm run clean",
     "build": "npm run build:dev && npm run build:dist && npm run build:exe && npm run format:clis && npm run minify-and-compare",
     "build:dev": "rollup -c .gnv/rollup/dev.es.js && rollup -c .gnv/rollup/dev.cjs.js",

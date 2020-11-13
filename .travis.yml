@@ -5,8 +5,7 @@ node_js:
 
 # Install gnv with `npm i -g`, then add peer deps with `gnv get-peer-deps`.
 install:
-  - npm i -g --silent gnv@latest
-  - gnv get-peer-deps gnv web-widgets
+  - npm run gnv-install-dev
 
 # Build the gnv template with `gnv build`.
 script:
