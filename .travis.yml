@@ -10,4 +10,4 @@ install:
 
 # Build the gnv template with `gnv build`.
 script:
-  - gnv build
+  - yarn build
