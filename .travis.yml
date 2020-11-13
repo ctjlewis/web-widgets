@@ -7,6 +7,7 @@ node_js:
 install:
   - npm i -g --silent gnv@latest
   - gnv get-peer-deps
+  - install-peerdeps .
 
 # Build the gnv template with `gnv build`.
 script:
