@@ -6,8 +6,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "web-widgets": "./dist/cli.cjs",
-    "web-widgets-dev": "./exports/cli.js"
+    "web-widgets": "./dist/cli.cjs"
   },
   "main": "./dist/widgets.cjs",
   "module": "./dist/widgets.mjs",
